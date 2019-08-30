@@ -1,0 +1,50 @@
+/*
+    Setting permissions
+
+    In the Lambda editor, go to the Execution role section below the code editor
+    Select View the auto-update-rest-dev-us-west-2-lambdaRole role
+    Edit the policy named dev-auto-update-rest-lambda
+        Clone the S3 permissions from the lambda bucket and change them to the auto-install bucket.
+
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogStream",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:logs:us-west-2:336531981683:log-group:/aws/lambda/auto-update-rest-dev*:*",
+                "arn:aws:s3:::auto-update-rest-dev-serverlessdeploymentbucket-1hoprl3k5ej4d"
+            ]
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "logs:PutLogEvents"
+            ],
+            "Resource": [
+                "arn:aws:logs:us-west-2:336531981683:log-group:/aws/lambda/auto-update-rest-dev*:*:*",
+                "arn:aws:s3:::awr-auto-install"
+            ]
+        },
+        {
+            "Sid": "VisualEditor2",
+            "Effect": "Allow",
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::auto-update-rest-dev-serverlessdeploymentbucket-1hoprl3k5ej4d/*"
+        },
+        {
+            "Sid": "VisualEditor3",
+            "Effect": "Allow",
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::awr-auto-install/*"
+        }
+    ]
+}
